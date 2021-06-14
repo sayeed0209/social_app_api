@@ -17,7 +17,16 @@ router.post("/register", async (req, res, next) => {
 });
 
 router.get("/login", async (req, res, next) => {
-	const user = await User.find({});
-	res.json({ user: user });
+	const user = await User.find({ email: req.body.email });
+	if (!user.length) {
+		res.status(401).send("user not found ");
+	} else {
+		if (await bcrypt.compare(req.body.password, user[0].password)) {
+			// res.send("user found");
+			res.send(user[0]);
+		} else {
+			res.status(401).send("user not found ");
+		}
+	}
 });
 module.exports = router;
