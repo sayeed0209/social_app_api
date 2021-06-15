@@ -13,7 +13,7 @@ mongoose.connect("mongodb://localhost:27017/blogData", {
 	useCreateIndex: true,
 });
 
-app.use("/post", PostController);
+app.use("/posts", PostController);
 app.use("/users", UserController);
 
 app.listen(8000, () => {
