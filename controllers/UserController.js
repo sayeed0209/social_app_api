@@ -23,7 +23,19 @@ router.get("/login", async (req, res, next) => {
 	} else {
 		if (await bcrypt.compare(req.body.password, user[0].password)) {
 			// res.send("user found");
-			res.send(user[0]);
+			const token = await jwt.sign(
+				{
+					user: user,
+				},
+				process.env.ACCESS_TOKEN_SECRET,
+				{
+					expiresIn: "1h",
+				}
+			);
+			return res.status(200).json({
+				message: "Auth sucessfull",
+				token: token,
+			});
 		} else {
 			res.status(401).send("user not found ");
 		}
