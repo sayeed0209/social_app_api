@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/head') %>
+	<body>
+		<%- include('../partials/nav') %>
+		<div class="container">
+			<form action="/posts" method="post">
+				<div class="mb-3">
+					<label for="title" class="form-label">Title</label>
+					<textarea
+						name="title"
+						id=""
+						cols="10"
+						rows="5"
+						class="form-control"
+					></textarea>
+				</div>
+				<div class="mb-3">
+					<label for="author" class="form-label">Author</label>
+					<input type="text" class="form-control" id="author" name="author" />
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</body>
+</html>

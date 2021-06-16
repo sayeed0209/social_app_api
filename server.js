@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const path = require("path");
+const ejs = require("ejs");
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 const AuthMiddleware = require("./middleware/checkAuth");
 const PostController = require("./controllers/PostController");
 const UserController = require("./controllers/UserController");
@@ -13,7 +16,9 @@ mongoose.connect("mongodb://localhost:27017/blogData", {
 	useUnifiedTopology: true,
 	useCreateIndex: true,
 });
-
+app.get("/", (req, res) => {
+	res.send("<h1>Welcome to home</h1>");
+});
 app.use("/posts", PostController);
 app.use("/users", UserController);
 
