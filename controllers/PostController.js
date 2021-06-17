@@ -23,23 +23,16 @@ router.get("/:id", async (req, res) => {
 	const post = await Post.findById({ _id: id });
 	res.render("posts/show", { post });
 });
-
+router.get("/:id/edit", async (req, res) => {
+	const { id } = req.params;
+	const post = await Post.findById({ _id: id });
+	res.render("posts/edit", { post });
+});
 router.patch("/:id", async (req, res) => {
 	const { id } = req.params;
 	const { title } = req.body;
-	console.log(id);
 	const post = await Post.findByIdAndUpdate(id, { title }, { new: true });
-	if (post) {
-		res.status(200).json({
-			message: "Post has been updated sucessfully",
-			post: post,
-		});
-	} else {
-		res.status(401).json({
-			message: "Post now found with given id",
-		});
-	}
-	post.save();
+	res.redirect("/posts");
 });
 router.delete("/:id", async (req, res) => {
 	const { id } = req.params;
