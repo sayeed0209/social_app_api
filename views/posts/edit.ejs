@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/head') %>
+
+	<body>
+		<%- include('../partials/nav') %>
+		<div class="container">
+			<div class="m-3 text-center">
+				<h1>Edit post</h1>
+				<form action="/posts/<%= post._id%>?_method=PATCH" method="post">
+					<textarea type="text" class="form-control mb-3 row-3" name="title">
+<%= post.title %></textarea
+					>
+					<button class="btn btn-primary" type="submit">Update</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
