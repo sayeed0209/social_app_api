@@ -4,16 +4,17 @@ const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+router.get("/register", (req, res) => {
+	res.render("users/index");
+});
 router.post("/register", async (req, res, next) => {
 	// register user
-	const { firstName, lastName, email, password } = req.body;
+	const { firstname, lastname, email, password } = req.body;
 	const salt = await bcrypt.genSalt(10);
 	const hashPassword = await bcrypt.hash(password, salt);
-	const user = new User({ firstName, lastName, email, password: hashPassword });
-	console.log(user);
+	const user = new User({ firstname, lastname, email, password: hashPassword });
 	await user.save();
-	res.send("User created");
+	res.redirect("/posts");
 });
 
 router.get("/login", async (req, res, next) => {
