@@ -37,14 +37,6 @@ router.patch("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
 	const { id } = req.params;
 	const post = await Post.findByIdAndDelete(id);
-	if (post) {
-		res.status(200).json({
-			message: "Post has been Deleted",
-		});
-	} else {
-		res.status(401).json({
-			message: "Post now found with given id",
-		});
-	}
+	res.redirect("/posts");
 });
 module.exports = router;

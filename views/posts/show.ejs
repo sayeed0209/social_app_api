@@ -3,12 +3,25 @@
 	<%- include('../partials/head') %>
 	<body>
 		<%- include('../partials/nav') %>
-		<div class="container">
-			<div class="m-3 text-center">
-				<h1>Show post</h1>
-				<h2>Title: <%= post.title %></h2>
-				<h3>Author : <%= post.author %></h3>
-				<a class="btn btn-primary" href="/posts/<%= post._id%>/edit">Edit</a>
+		<div class="container my-3 d-flex justify-content-center">
+			<div class="card" style="width: 18rem">
+				<div class="card-body">
+					<h1 class="card-title py-2">Show post</h1>
+					<h2>Title: <%= post.title %></h2>
+					<h5 class="card-text py-2">Author : <%= post.author %></h5>
+					<div class="d-flex justify-content-between">
+						<a class="btn btn-primary mb-3" href="/posts/<%= post._id%>/edit"
+							>Edit</a
+						>
+						<form
+							action="/posts/<%= post._id%>?_method=DELETE"
+							method="post"
+							class="mx-5"
+						>
+							<button class="btn btn-danger">Delete</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
