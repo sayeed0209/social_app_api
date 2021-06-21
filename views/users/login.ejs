@@ -5,7 +5,7 @@
 		<%- include('../partials/nav') %>
 		<div class="container">
 			<h1>Login</h1>
-			<form action="/users/register" method="post">
+			<form action="/users/login" method="POST" id="login">
 				<div>
 					<label for="email" class="form-label">Email</label>
 					<input type="email" name="email" id="email" class="form-control" />
@@ -24,5 +24,36 @@
 				</div>
 			</form>
 		</div>
+
+		<script>
+			const form = document.getElementById("login");
+			form.addEventListener("submit", login);
+
+			async function login(event) {
+				event.preventDefault();
+				const email = document.getElementById("email").value;
+				const password = document.getElementById("password").value;
+
+				const result = await fetch("/users/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						email,
+						password,
+					}),
+				}).then(res => res.json());
+
+				if (result.status === "ok") {
+					// everythign went fine
+					console.log("Got the token: ", result.data);
+					localStorage.setItem("token", result.data);
+					alert("Success");
+				} else {
+					alert(result.error);
+				}
+			}
+		</script>
 	</body>
 </html>
