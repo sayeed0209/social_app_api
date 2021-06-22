@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const auth = require("../middleware/checkAuth");
 router.post("/create", async (req, res) => {
 	try {
 		const { firstname, lastname, email, password } = req.body;
@@ -14,6 +15,9 @@ router.post("/create", async (req, res) => {
 	} catch (err) {
 		res.status(400).send({ error: err.message });
 	}
+});
+router.get("/me", auth, async (req, res) => {
+	res.send(req.user);
 });
 
 router.patch("/:id", async (req, res) => {

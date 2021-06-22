@@ -25,20 +25,13 @@ mongoose.connect("mongodb://localhost:27017/blogData", {
 app.get("/", (req, res) => {
 	res.send("<h1>Welcome to home</h1>");
 });
+app.use((req, res, next) => {
+	console.log(req.method, req.path);
+	next();
+});
 app.use("/posts", PostController);
 app.use("/users", UserController);
 
 app.listen(8000, () => {
 	console.log("App runing on port 8000");
 });
-
-// const myFunc = async () => {
-// 	const token = jwt.sign({ _id: "123abc" }, process.env.ACCESS_TOKEN_SECRET, {
-// 		expiresIn: "1h",
-// 	});
-// 	console.log(token);
-// 	const verifyToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-// 	console.log(verifyToken);
-// };
-
-// myFunc();
