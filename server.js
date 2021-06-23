@@ -25,10 +25,7 @@ mongoose.connect("mongodb://localhost:27017/blogData", {
 app.get("/", (req, res) => {
 	res.send("<h1>Welcome to home</h1>");
 });
-app.use((req, res, next) => {
-	console.log(req.method, req.path);
-	next();
-});
+
 app.use("/posts", PostController);
 app.use("/users", UserController);
 
