@@ -21,7 +21,7 @@ const userSchema = new Schema(
 			},
 		},
 		password: { type: String, required: true, trim: true },
-		avatar: { type: buffer },
+		avatar: { type: Buffer },
 
 		tokens: [
 			{

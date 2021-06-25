@@ -5,12 +5,11 @@ const User = require("../models/User");
 const auth = require("../middleware/checkAuth");
 const multer = require("multer");
 const upload = multer({
-	dest: "avatars",
 	limits: {
 		fileSize: 2000000,
 	},
 	fileFilter(req, file, cb) {
-		if (!file.originalname.match(/\.(jpg|png|gif|jpeg)$/)) {
+		if (!file.originalname.match(/\.(jpg|png|PNG|gif|jpeg)$/)) {
 			return cb(
 				new Error('Please upload a file with "png, jpg,gif or jpeg extensions"')
 			);
@@ -106,13 +105,26 @@ router.post(
 	"/me/avatar",
 	auth,
 	upload.single("avatar"),
-	(req, res) => {
-		console.log("hola");
+	async (req, res) => {
+		req.user.avatar = req.file.buffer;
+		await req.user.save();
 		res.send();
 	},
 	(error, req, res, next) => {
 		res.status(400).send({ error: error.message });
 	}
 );
-
+router.delete(
+	"/me/avatar",
+	auth,
+	upload.single("avatar"),
+	async (req, res) => {
+		req.user.avatar = undefined;
+		await req.user.save();
+		res.send();
+	},
+	(error, req, res, next) => {
+		res.status(400).send({ error: error.message });
+	}
+);
 module.exports = router;
