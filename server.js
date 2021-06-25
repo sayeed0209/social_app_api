@@ -2,12 +2,16 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
+const cokkieParser = require("cookie-parser");
 const methodOverride = require("method-override");
+const jwt = require("jsonwebtoken");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(methodOverride("_method"));
+app.use(cokkieParser());
 const AuthMiddleware = require("./middleware/checkAuth");
 const PostController = require("./controllers/PostController");
 const UserController = require("./controllers/UserController");
@@ -21,6 +25,7 @@ mongoose.connect("mongodb://localhost:27017/blogData", {
 app.get("/", (req, res) => {
 	res.send("<h1>Welcome to home</h1>");
 });
+
 app.use("/posts", PostController);
 app.use("/users", UserController);
 
