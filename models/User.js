@@ -4,28 +4,33 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const Post = require("../models/Post");
-const userSchema = new Schema({
-	firstname: { type: String, required: true, trim: true },
-	lastname: { type: String, required: true, trim: true },
-	email: {
-		type: String,
-		required: true,
-		unique: true,
-		lowercase: true,
-		validate(value) {
-			if (!validator.isEmail(value)) {
-				throw new Error("Email is invalid");
-			}
+const userSchema = new Schema(
+	{
+		firstname: { type: String, required: true, trim: true },
+		lastname: { type: String, required: true, trim: true },
+		email: {
+			type: String,
+			required: true,
+			unique: true,
+			lowercase: true,
+			validate(value) {
+				if (!validator.isEmail(value)) {
+					throw new Error("Email is invalid");
+				}
+			},
 		},
-	},
-	password: { type: String, required: true, trim: true },
+		password: { type: String, required: true, trim: true },
 
-	tokens: [
-		{
-			token: { type: String, required: true },
-		},
-	],
-});
+		tokens: [
+			{
+				token: { type: String, required: true },
+			},
+		],
+	},
+	{
+		timestamps: true,
+	}
+);
 
 // virtual
 userSchema.virtual("posts", {
