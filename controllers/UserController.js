@@ -2,10 +2,22 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const auth = require("../middleware/checkAuth");
-
+const multer = require("multer");
+const upload = multer({
+	dest: "avatars",
+	limits: {
+		fileSize: 2000000,
+	},
+	fileFilter(req, file, cb) {
+		if (!file.originalname.match(/\.(jpg|png|gif|jpeg)$/)) {
+			return cb(
+				new Error('Please upload a file with "png, jpg,gif or jpeg extensions"')
+			);
+		}
+		cb(undefined, true);
+	},
+});
 router.post("/create", async (req, res) => {
 	const user = new User(req.body);
 
@@ -89,5 +101,18 @@ router.delete("/me", auth, async (req, res) => {
 		res.status(500).send();
 	}
 });
+
+router.post(
+	"/me/avatar",
+	auth,
+	upload.single("avatar"),
+	(req, res) => {
+		console.log("hola");
+		res.send();
+	},
+	(error, req, res, next) => {
+		res.status(400).send({ error: error.message });
+	}
+);
 
 module.exports = router;

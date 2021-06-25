@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const Post = require("../models/Post");
+
 const userSchema = new Schema(
 	{
 		firstname: { type: String, required: true, trim: true },
@@ -20,6 +21,7 @@ const userSchema = new Schema(
 			},
 		},
 		password: { type: String, required: true, trim: true },
+		avatar: { type: buffer },
 
 		tokens: [
 			{
