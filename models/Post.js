@@ -4,6 +4,7 @@ const PostSchema = new Schema(
 	{
 		author: { type: String, trim: true },
 		title: { type: String, trim: true },
+		important: { type: Boolean, default: false },
 		owner: {
 			type: Schema.Types.ObjectId,
 			required: true,
