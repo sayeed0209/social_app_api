@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const Post = require("../models/Post");
 const userSchema = new Schema({
 	firstname: { type: String, required: true, trim: true },
 	lastname: { type: String, required: true, trim: true },
@@ -24,6 +25,13 @@ const userSchema = new Schema({
 			token: { type: String, required: true },
 		},
 	],
+});
+
+// virtual
+userSchema.virtual("posts", {
+	ref: "Post",
+	localField: "_id",
+	foreignField: "owner",
 });
 
 userSchema.methods.toJSON = function () {
@@ -72,6 +80,10 @@ userSchema.pre("save", async function (next) {
 
 	next();
 });
-
+userSchema.pre("remove", async function (next) {
+	const user = this;
+	await Post.deleteMany({ owner: user._id });
+	next();
+});
 const User = mongoose.model("User", userSchema);
 module.exports = User;
