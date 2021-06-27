@@ -2,10 +2,22 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const auth = require("../middleware/checkAuth");
-
+// const sharp = require("sharp");
+const multer = require("multer");
+const upload = multer({
+	limits: {
+		fileSize: 2000000,
+	},
+	fileFilter(req, file, cb) {
+		if (!file.originalname.match(/\.(jpg|png|PNG|gif|jpeg)$/)) {
+			return cb(
+				new Error('Please upload a file with "png, jpg,gif or jpeg extensions"')
+			);
+		}
+		cb(undefined, true);
+	},
+});
 router.post("/create", async (req, res) => {
 	const user = new User(req.body);
 
@@ -90,4 +102,44 @@ router.delete("/me", auth, async (req, res) => {
 	}
 });
 
+router.post(
+	"/me/avatar",
+	auth,
+	upload.single("avatar"),
+	async (req, res) => {
+		// const avatarBuffer = await sharp(req.file.buffer).resize({width: 300, height:300}).png().toBuffer()
+		// req.user.avatar = avatarBuffer
+		req.user.avatar = req.file.buffer;
+		await req.user.save();
+		res.send();
+	},
+	(error, req, res, next) => {
+		res.status(400).send({ error: error.message });
+	}
+);
+router.delete(
+	"/me/avatar",
+	auth,
+	upload.single("avatar"),
+	async (req, res) => {
+		req.user.avatar = undefined;
+		await req.user.save();
+		res.send();
+	},
+	(error, req, res, next) => {
+		res.status(400).send({ error: error.message });
+	}
+);
+router.get("/:id/avatar", async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id);
+		if (!user || !user.avatar) {
+			throw new Error();
+		}
+		res.set("Content-Type", "image/jpg");
+		res.send(user.avatar);
+	} catch (err) {
+		res.status(404).send({ error: err.message });
+	}
+});
 module.exports = router;
