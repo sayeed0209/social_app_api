@@ -6,7 +6,6 @@ const cokkieParser = require("cookie-parser");
 const methodOverride = require("method-override");
 const PostController = require("./controllers/PostController");
 const UserController = require("./controllers/UserController");
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
@@ -31,3 +30,4 @@ app.use("/users", UserController);
 app.listen(8000, () => {
 	console.log("App runing on port 8000");
 });
+
