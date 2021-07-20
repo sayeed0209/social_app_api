@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "nodemon server.js",
 		"dev": "env-cmd -f ./config/dev.env nodemon server.js",
-		"test": "env-cmd -f ./config/test.env jest --watch"
+		"test": "env-cmd -f ./config/test.env jest --watch "
 	},
 	"author": "sayeed",
 	"license": "ISC",
@@ -17,6 +17,7 @@
 		"dotenv": "^10.0.0",
 		"ejs": "^3.1.6",
 		"express": "^4.17.1",
+		"jest": "^23.6.0",
 		"jsonwebtoken": "^8.5.1",
 		"method-override": "^3.0.0",
 		"mongoose": "^5.12.13",
@@ -27,7 +28,6 @@
 		"validator": "^13.6.0"
 	},
 	"devDependencies": {
-		"env-cmd": "^10.1.0",
-		"jest": "^27.0.6"
+		"env-cmd": "^10.1.0"
 	}
 }

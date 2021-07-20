@@ -25,18 +25,31 @@ npm run dev -> [start the server]
 ## Endpoints
     ## posts
 -POST:/posts:create a post
+
 -GET:/posts:filter by query string (important) & sortBy('DESC/ASC')
+
 -GET:/posts/:id - Get a post by id.
+
 -PATCH:/posts/:id -Update a post by id
+
 -DELETE:/posts/:id - Delete a post by id
+
 
     ## User
  -POST:/users/create:create a user.
+
  -POST:users/login:login a user.
+
  -POST:users/logout:logout a user.
+
  -POST:/users/logoutAll:logout a user from all device.
+
  -GET:/users/me :get user profile.
- -DELETE:/users/me:delete a user
- -POST:/users/me/avatar :upload a picture 
- -DELETE:/users/:id/avatar :delete a avatar 
- -GET:/users /:id/avatar :get user avatar
+
+ -DELETE:/users/me:delete a user.
+
+ -POST:/users/me/avatar :upload a picture under or euqal to 2MB.
+
+ -DELETE:/users/:id/avatar :delete a avatar.
+
+ -GET:/users /:id/avatar :get user avatar.
