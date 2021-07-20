@@ -1,4 +1,4 @@
-# express_auth_jwt
+# social_blog_API
 ## Tech Stack
 - Backend
   - Node.js 
