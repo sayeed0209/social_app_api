@@ -7,6 +7,8 @@ const methodOverride = require("method-override");
 const PORT = process.env.PORT;
 const PostController = require("./controllers/PostController");
 const UserController = require("./controllers/UserController");
+require("dotenv").config();
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
