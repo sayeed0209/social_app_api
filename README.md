@@ -1,4 +1,4 @@
-# express_auth_jwt
+# social_blog_API
 ## Tech Stack
 - Backend
   - Node.js 
@@ -37,6 +37,7 @@ npm run dev -> [start the server]
 
     ## User
  -POST:/users/create:create a user.
+<<<<<<< HEAD
 
  -POST:users/login:login a user.
 
@@ -53,3 +54,21 @@ npm run dev -> [start the server]
  -DELETE:/users/:id/avatar :delete a avatar.
 
  -GET:/users /:id/avatar :get user avatar.
+=======
+ 
+ -POST:users/login:login a user.
+ 
+ -POST:users/logout:logout a user.
+ 
+ -POST:/users/logoutAll:logout a user from all device.
+ 
+ -GET:/users/me :get user profile.
+ 
+ -DELETE:/users/me:delete a user
+ 
+ -POST:/users/me/avatar :upload a picture 
+ 
+ -DELETE:/users/:id/avatar :delete a avatar 
+ 
+ -GET:/users /:id/avatar :get user avatar
+>>>>>>> 1e544ed74d3d4d8887403d7b232c542f11e86243
