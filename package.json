@@ -8,6 +8,9 @@
 		"dev": "env-cmd -f ./config/dev.env nodemon server.js",
 		"test": "env-cmd -f ./config/test.env jest --watch "
 	},
+	"jest": {
+		"testEnvironment": "node"
+	},
 	"author": "sayeed",
 	"license": "ISC",
 	"dependencies": {
