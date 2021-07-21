@@ -73,6 +73,7 @@ router.post("/logoutAll", auth, async (req, res) => {
 
 router.get("/me", auth, async (req, res) => {
 	// console.log(req.user);
+
 	res.send(req.user);
 });
 
@@ -102,7 +103,7 @@ router.delete("/me", auth, async (req, res) => {
 		// }
 		await req.user.remove();
 		sendCancellationEmail(req.user.email, req.user.firstname);
-		res.send(req.user);
+		res.status(200).send(req.user);
 	} catch (e) {
 		res.status(500).send();
 	}
